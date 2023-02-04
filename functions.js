@@ -1,17 +1,65 @@
 
+let title;
+let author;
+let pages;
+let read;
+let newBook;
+
+function Books(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.info = function () {
+        console.log(
+            title +
+            " by " +
+            author +
+            ", " +
+            pages +
+            " pages, " +
+            (read ? "already read" : "not read yet")
+        );
+    };
+}
+
 const titlehandler = (e) => {
     console.log(e.target.value);
+    title = e.target.value;
+    console.log(title);
 };
 
-const title = document.querySelector('.title');
-title.addEventListener('input', titlehandler);
+const authorhandler = (e) => {
+    console.log(e.target.value);
+    author = e.target.value;
+};
 
-const author = document.querySelector('.author');
-author.addEventListener('input', titlehandler);
+const pageshandler = (e) => {
+    console.log(e.target.value);
+    pages = e.target.value;
+};
 
-const pages = document.querySelector('.pages');
-pages.addEventListener('input', titlehandler);
+const getTitle = document.querySelector('.title');
+getTitle.addEventListener('input', titlehandler);
+
+const getAuthor = document.querySelector('.author');
+getAuthor.addEventListener('input', authorhandler);
+
+const getPages = document.querySelector('.pages');
+getPages.addEventListener('input', pageshandler);
 
 const handleClick = (myRadio) => {
     console.log(myRadio.value);
+    read = myRadio.value;
 };
+
+const submitData = document.querySelector('.btn');
+submitData.addEventListener('click', () => {
+    newBook = new Books(title, author, pages, read);
+    console.log(newBook.title);
+});
+
+
+
+
+
