@@ -4,7 +4,7 @@ let author;
 let pages;
 let read;
 let newBook;
-const bookArr = [{
+let bookArr = [{
     title: 'The Silmarillion',
     author: 'JJR. Tolkien',
     pages: 300,
@@ -86,8 +86,19 @@ function changeDisplay(e) {
 
 };
 
-function deleteFunction(e) {
-    console.log("Elv, I love u!");
+function deleteFunction() {
+    const buttons = document.querySelectorAll('[name=delete]');
+    function buttonPressed(e) {
+        console.log(e.target.id);  // Get ID of Clicked Element
+    }
+
+    for (let button of buttons) {
+        console.log(button.name);
+        button.addEventListener("click", buttonPressed);
+    }
+
+    buttonPressed();
+
 }
 
 function sortArr() {
@@ -98,17 +109,21 @@ function sortArr() {
     for (let i = 0; i < bookArr.length; i++) {
         let li = document.createElement('li');
         li.innerHTML = bookArr[i].title +
-        " by " +
-        bookArr[i].author +
-        ", " +
-        bookArr[i].pages +
-        " pages, " +
-        (bookArr[i].read ? "already read" : "not read yet") ;
+            " by " +
+            bookArr[i].author +
+            ", " +
+            bookArr[i].pages +
+            " pages, " +
+            (bookArr[i].read ? "already read" : "not read yet");
         li.setAttribute("class", 'list-group-item');
+        li.setAttribute("name", bookArr[i].title);
+        li.setAttribute("id", bookArr[i].title);
 
         let button = document.createElement('button');
         button.setAttribute('class', 'btn btn-outline-dark rounded-0 mx-3');
-        button.setAttribute('onclick', 'deleteFunction()');
+        button.setAttribute('id', bookArr[i].title);
+        button.setAttribute("onclick", "reply_click(this.id)")
+        button.setAttribute("name", "delete")
         button.innerHTML = "Delete";
 
         li.appendChild(button);
@@ -117,7 +132,9 @@ function sortArr() {
     }
 }
 
-
-
-
-
+function reply_click(id) {
+    console.log(bookArr);
+    console.log(id);
+    const elems = document.getElementById(id);
+    elems.remove();
+}
